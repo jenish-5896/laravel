@@ -6,9 +6,9 @@ pipeline {
         stage('Build Application') {
             steps {
                 sh ''' 
-                sudo docker-compose up -d
-                sudo php artisan key:generate
-                sudo php artisan config:cache
+                docker-compose up -d
+                php artisan key:generate
+                php artisan config:cache
                 sh '''
             }
         }
