@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'controllerNode'
+        label 'myslaveNode'
     }
     stages {
         stage('Build Application') {
