@@ -3,7 +3,7 @@ services:
   app:
     build:
       args:
-        user: sammy
+        user: vagrant
         uid: 1000
       context: ./
       dockerfile: Dockerfile
@@ -15,6 +15,9 @@ services:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
     working_dir: /var/www/html/
+    volumes:
+      - ./:/var/www/html/
+      - ./php/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
     networks:
       - app-network
 
@@ -29,6 +32,9 @@ services:
       MYSQL_USER: esewa
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql/
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - app-network
 
@@ -39,9 +45,15 @@ services:
     ports:
       - 80:80
       - 443:443
+    volumes:
+      - ./:/var/www/html/
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
 
 networks:
   app-network:
     driver: bridge
+volumes:
+  dbdata:
+    driver: local
