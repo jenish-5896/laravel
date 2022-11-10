@@ -2,7 +2,7 @@ FROM maxtietz/php8.1-fpm
 MAINTAINER jenish.com
 ENV TZ="Asia/Kathmandu"
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/html/
 # For time issue otherwise cannot update/install in container
 RUN echo "Acquire::Check-Valid-Until \"false\";\nAcquire::Check-Date \"false\";" | cat > /etc/apt/apt.conf.d/10no--check-valid-until
 # Install dependencies
@@ -37,8 +37,8 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd xml iconv sim
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
-COPY .  /var/www/
+COPY .  /var/www/html
 RUN composer install --no-dev --optimize-autoloader
-RUN chmod -R 777 /var/www/public/*
-RUN chmod -R 777 /var/www/storage/*
-RUN chmod -R 777 /var/www/storage/logs
+RUN chmod -R 777 /var/www/html/public/*
+RUN chmod -R 777 /var/www/html/storage/*
+RUN chmod -R 777 /var/www/html/storage/logs
