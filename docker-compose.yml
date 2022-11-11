@@ -16,7 +16,7 @@ services:
       - ./:/var/www/html/
       - ./php/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
     networks:
-      - app5-network
+      - app6-network
 
   db:
     image: mysql:5.7.32
@@ -30,10 +30,10 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-      - dbdata5:/var/lib/mysql/
+      - dbdata6:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
     networks:
-      - app5-network
+      - app6-network
 
   nginx:
     image: nginx:alpine
@@ -46,11 +46,11 @@ services:
       - ./:/var/www/html/
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
-      - app5-network
+      - app6-network
 
 networks:
-  app5-network:
+  app6-network:
     driver: bridge
 volumes:
-  dbdata5:
+  dbdata6:
     driver: local
